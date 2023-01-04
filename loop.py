@@ -109,6 +109,7 @@ def loop(cfg):
     subdiv = [] # store per mesh limit subdivison
     train_params = [] # store all trainable paramters
     vert_train = False
+    COMPTEUR_MESHES = 0
 
     for idx, m in enumerate(cfg["meshes"]): # Loop over each mesh path
 
@@ -354,6 +355,15 @@ def loop(cfg):
                     num_layers=cfg["layers"],
                     background=torch.ones(1, cfg["log_res"], cfg["log_res"], 3).to(device)
                 )
+                
+                out_path = os.path.join( cfg["path"], "meshes_export", "mesh_%d" % COMPTEUR_MESHES )
+                os.makedirs(out_path)
+
+                obj.write_obj(
+                  out_path,
+                  complete_scene.eval(params)
+                )
+                COMPTEUR_MESHES += 1
 
                 log_image = video.ready_image(log_image)
 
