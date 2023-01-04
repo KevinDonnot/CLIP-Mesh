@@ -7,7 +7,6 @@ import yaml
 import torch
 import kornia
 import torchvision
-import time
 
 import numpy                as np
 import nvdiffrast.torch     as dr
@@ -345,20 +344,20 @@ def loop(cfg):
 
                 rot_ang += 1
 
-                log_image = render.render_mesh(
-                    glctx,
-                    complete_scene.eval(params),
-                    params['mvp'],
-                    params['campos'],
-                    params['lightpos'],
-                    cfg["log_light_power"],
-                    cfg["log_res"],
-                    num_layers=cfg["layers"],
-                    background=torch.ones(1, cfg["log_res"], cfg["log_res"], 3).to(device)
-                )
+                #log_image = render.render_mesh(
+                #    glctx,
+                #    complete_scene.eval(params),
+                #    params['mvp'],
+                #    params['campos'],
+                #    params['lightpos'],
+                #    cfg["log_light_power"],
+                #    cfg["log_res"],
+                #    num_layers=cfg["layers"],
+                #    background=torch.ones(1, cfg["log_res"], cfg["log_res"], 3).to(device)
+                #)
                 
                 # out_path = os.path.join( cfg["path"], "meshes_export", "mesh_%d" % COMPTEUR_MESHES )
-                out_path = os.path.join( "/content/gdrive/MyDrive/DESIGN_AI/%d/" % time.time(), "meshes_export", "mesh_%d" % COMPTEUR_MESHES )
+                out_path = os.path.join( "/content/gdrive/MyDrive/DESIGN_AI/"+now.strftime("%m-%d-%Y_%H-%M-%S")+"/", "meshes_export", "mesh_%d" % COMPTEUR_MESHES )
                 os.makedirs(out_path)
 
                 obj.write_obj(
@@ -367,7 +366,7 @@ def loop(cfg):
                 )
                 COMPTEUR_MESHES += 1
 
-                log_image = video.ready_image(log_image)
+                #log_image = video.ready_image(log_image)
 
 
         # Render scene for training
@@ -550,15 +549,15 @@ def loop(cfg):
 
         t_loop.set_description("CLIP Loss = %.6f" % clip_loss.item() )
     
-    video.close()
+    #video.close()
 
-    for idx, m in enumerate(render_meshes):
-        out_path = os.path.join( cfg["path"], "meshes", "mesh_%d" % idx )
-        os.makedirs(out_path)
-
-        obj.write_obj(
-            out_path,
-            m
-        )
+    #for idx, m in enumerate(render_meshes):
+    #    out_path = os.path.join( cfg["path"], "meshes", "mesh_%d" % idx )
+    #   os.makedirs(out_path)
+    #
+    #    obj.write_obj(
+    #        out_path,
+    #        m
+    #    )
 
     return cfg["path"]
