@@ -357,7 +357,9 @@ def loop(cfg):
                 #)
                 
                 # out_path = os.path.join( cfg["path"], "meshes_export", "mesh_%d" % COMPTEUR_MESHES )
-                out_path = os.path.join( "/content/gdrive/MyDrive/EXPORT_MESHES/"+now.strftime("%m-%d-%Y_%H-%M-%S")+"/", "meshes_export", "mesh_%d" % COMPTEUR_MESHES )
+                
+                COMPTEUR_10 = math.floor(COMPTEUR_MESHES)
+                out_path = os.path.join( "/content/gdrive/MyDrive/EXPORT_MESHES/"+now.strftime("%m-%d-%Y_%H-%M-%S")+"/", "meshes_export_%d" % COMPTEUR_10, "mesh_%d" % COMPTEUR_MESHES )
                 os.makedirs(out_path)
 
                 obj.write_obj(
