@@ -7,6 +7,7 @@ import yaml
 import torch
 import kornia
 import torchvision
+import math
 
 import numpy                as np
 import nvdiffrast.torch     as dr
